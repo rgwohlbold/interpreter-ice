@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Main {
 
-	public static final File fileName = new File("source.rs");
+	public static final File fileName = new File("source.ice");
 	
 	public static void main(String[] args) throws IOException {
 		FileReader fr = new FileReader(fileName);
