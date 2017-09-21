@@ -23,11 +23,15 @@ public class Parser {
 			currentToken = lexer.getNextToken();
 		}
 		else {
-			throw new RuntimeException("unexpected token");
+			System.err.println("Unexpected token: \"" + currentToken.getValue() + "\"");
+			System.exit(-1);
 		}
 	}
 	
 	public ASTNode factor() {
+		// factor represents a single number
+		// it can be an unary operator and another factor
+		// or parentheses with an (expr) in them
 		Token token = currentToken;
 		if (currentToken.getType() == TokenType.T_INTEGER) {
 			this.eat(TokenType.T_INTEGER);
@@ -60,19 +64,25 @@ public class Parser {
 	}
 	
 	public ASTNode term() {
-		// term the reuslt of a * / operation of 1+ factors
+		// term the result of a * / // operation of 1+ factors
+		// it can be a single number (factor)
 		ASTNode result = factor();
 		
-		while(tokenTypeIn(TokenType.T_MUL, TokenType.T_DIV)) {
+		while(tokenTypeIn(TokenType.T_MUL, TokenType.T_FDIV)) {
 			
 			Token op = currentToken;
 			
 			if (op.getType() == TokenType.T_MUL) {
 				eat(TokenType.T_MUL);
 			}
-			else if (op.getType() == TokenType.T_DIV) {
-				eat(TokenType.T_DIV);
+			else if (op.getType() == TokenType.T_FDIV) {
+				eat(TokenType.T_FDIV);
 			}
+			/*
+			else if (op.getType() == TokenType.T_IDIV) {
+				eat(TokenType.T_IDIV);
+			}
+			*/
 			
 			result = new BinOp(result, op, factor());
 		}
@@ -118,7 +128,10 @@ public class Parser {
 		if (this.currentToken.getType() == TokenType.T_ID) {
 			return this.assignmentStatement();
 		}
-		return empty();
+		else if (this.currentToken.getType() == TokenType.T_NEWLINE) {
+			return this.statement();
+		}
+		throw new RuntimeException("Parser Error");
 	}
 	
 	public ASTNode statementList() {
@@ -134,6 +147,10 @@ public class Parser {
 	
 	public ASTNode program() {
 		ASTNode result = statementList();
+		while(currentToken.getType() == TokenType.T_NEWLINE) {
+			this.eat(TokenType.T_NEWLINE);
+		}
+		this.eat(TokenType.T_EOF);
 		return result;
 	}
 	

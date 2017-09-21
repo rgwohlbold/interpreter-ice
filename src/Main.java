@@ -3,9 +3,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import token.Token;
-import token.TokenType;
-
 public class Main {
 
 	public static final File fileName = new File("source.rs");

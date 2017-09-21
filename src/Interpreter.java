@@ -21,19 +21,28 @@ public class Interpreter extends NodeVisitor {
 		this.variables = new HashMap<String, Object>();
 	}
 	
-	public Integer visit_BinOp(BinOp node) {
+	public Object visit_BinOp(BinOp node) {
+		
+		Integer left = (Integer) this.visit(node.getRight());
+		Integer right = (Integer) this.visit(node.getLeft());
+		
 		if (node.getOp().getType() == TokenType.T_PLUS) {
-			return (Integer)this.visit(node.getLeft()) + (Integer)this.visit(node.getRight());
+			return left + right;
 		}
 		else if (node.getOp().getType() == TokenType.T_MINUS) {
-			return (Integer)this.visit(node.getLeft()) - (Integer)this.visit(node.getRight());
+			return left - right;
 		}
 		else if (node.getOp().getType() == TokenType.T_MUL) {
-			return (Integer)this.visit(node.getLeft()) * (Integer)this.visit(node.getRight());
+			return left * right;
 		}
-		else if (node.getOp().getType() == TokenType.T_DIV) {
+		else if (node.getOp().getType() == TokenType.T_FDIV) {
+			return left / right;
+		}
+		/*
+		else if (node.getOp().getType() == TokenType.T_IDIV) {
 			return (Integer)this.visit(node.getLeft()) / (Integer)this.visit(node.getRight());
 		}
+		*/
 		
 		return null;
 	}
@@ -62,12 +71,20 @@ public class Interpreter extends NodeVisitor {
 	
 	public Object visit_Var(Var node) {
 		String varName = node.getName();
-		return variables.get(varName);	
+		Object value = variables.get(varName);
+		if (value == null) {
+			throw new InvalidIdentifierException(varName);
+		}
+		return value;
 	}
 	
 	public Object visit_Assign(Assign node) {
 		String var_name = ((Var)node.getLeft()).getName();
-		this.variables.put(var_name, this.visit(node.getRight()));
+		Object result = this.visit(node.getRight());
+		if (this.variables.containsKey(var_name)) {
+			this.variables.remove(var_name);
+		}
+		this.variables.put(var_name, result);
 		return null;
 	}
 	

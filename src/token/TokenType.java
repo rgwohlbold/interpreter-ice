@@ -6,7 +6,8 @@ public enum TokenType {
 	T_PLUS,
 	T_MINUS,
 	T_MUL,
-	T_DIV,
+	T_FDIV,
+	//T_IDIV,
 	T_LPARENT,
 	T_RPARENT,
 	

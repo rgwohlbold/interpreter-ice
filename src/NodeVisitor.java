@@ -21,8 +21,9 @@ public class NodeVisitor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getCause().getMessage());
+			System.exit(-1);
+			//throw new InvalidIdentifierException(e.getCause().getMessage());
 		}
 		
 		return null;

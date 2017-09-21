@@ -56,7 +56,13 @@ public class Lexer {
 		}
 		else if (currentChar == '/') {
 			this.advance();
-			return new Token(TokenType.T_DIV, "/");
+			/*
+			if (this.peek() == '/') {
+				this.advance();
+				return new Token(TokenType.T_IDIV, "//");
+			}
+			*/
+			return new Token(TokenType.T_FDIV, "/");
 		}
 		
 		if (currentChar == '(') {
@@ -83,12 +89,12 @@ public class Lexer {
 		}
 		
 		if (currentChar == '=') {
+			this.advance();
 			if (this.peek() == '=') {
 				this.advance();
 				return new Token(TokenType.T_CMPEQ, "==");
 			}
 			// TODO: Comparison operators
-			this.advance();
 			return new Token(TokenType.T_ASSIGN, "=");
 		}
 		
