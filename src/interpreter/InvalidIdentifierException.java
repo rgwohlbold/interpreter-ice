@@ -2,9 +2,6 @@ package interpreter;
 
 public class InvalidIdentifierException extends RuntimeException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String msg;
 	
