@@ -1,7 +1,8 @@
+package interpreter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import ast.ASTNode;
+import parser.ast.ASTNode;
 
 public class NodeVisitor {
 

@@ -1,3 +1,4 @@
+package interpreter;
 
 public class InvalidIdentifierException extends RuntimeException {
 

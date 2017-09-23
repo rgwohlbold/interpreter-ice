@@ -1,12 +1,14 @@
-import ast.ASTNode;
-import ast.Assign;
-import ast.BinOp;
-import ast.Compound;
-import ast.NoOp;
-import ast.UnaryOp;
-import ast.Var;
-import token.Token;
-import token.TokenType;
+package parser;
+import lexer.Lexer;
+import lexer.token.Token;
+import lexer.token.TokenType;
+import parser.ast.ASTNode;
+import parser.ast.Assign;
+import parser.ast.BinOp;
+import parser.ast.Compound;
+import parser.ast.NoOp;
+import parser.ast.UnaryOp;
+import parser.ast.Var;
 
 public class Parser {
 
@@ -35,7 +37,7 @@ public class Parser {
 		Token token = currentToken;
 		if (currentToken.getType() == TokenType.T_INTEGER) {
 			this.eat(TokenType.T_INTEGER);
-			return new ast.Num(token);
+			return new parser.ast.Num(token);
 		}
 		else if (currentToken.getType() == TokenType.T_LPARENT) {
 			this.eat(TokenType.T_LPARENT);

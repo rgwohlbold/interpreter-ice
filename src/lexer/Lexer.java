@@ -1,7 +1,8 @@
+package lexer;
 
 
-import token.Token;
-import token.TokenType;
+import lexer.token.Token;
+import lexer.token.TokenType;
 
 public class Lexer {
 

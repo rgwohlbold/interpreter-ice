@@ -1,4 +1,4 @@
-package ast;
+package parser.ast;
 
 public class NoOp extends ASTNode {
 

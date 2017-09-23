@@ -1,6 +1,6 @@
-package ast;
+package parser.ast;
 
-import token.Token;
+import lexer.token.Token;
 
 public class Var extends ASTNode {
 

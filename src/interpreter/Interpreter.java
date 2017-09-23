@@ -1,15 +1,17 @@
+package interpreter;
 import java.util.HashMap;
 import java.util.Map;
 
-import ast.ASTNode;
-import ast.Assign;
-import ast.BinOp;
-import ast.Compound;
-import ast.NoOp;
-import ast.Num;
-import ast.UnaryOp;
-import ast.Var;
-import token.TokenType;
+import lexer.token.TokenType;
+import parser.Parser;
+import parser.ast.ASTNode;
+import parser.ast.Assign;
+import parser.ast.BinOp;
+import parser.ast.Compound;
+import parser.ast.NoOp;
+import parser.ast.Num;
+import parser.ast.UnaryOp;
+import parser.ast.Var;
 
 public class Interpreter extends NodeVisitor {
 
