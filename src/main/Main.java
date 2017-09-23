@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import interpreter.Interpreter;
 import lexer.Lexer;
+import lexer.token.Token;
+import lexer.token.TokenType;
 import parser.Parser;
 
 public class Main {
@@ -24,19 +26,22 @@ public class Main {
 		}
 		br.close();
 		
-		System.out.println(result);
+		//System.out.println(result);
+		//printToken(lexer);
 		
 		Lexer lexer = new Lexer(result);
 		Parser parser = new Parser(lexer);
 		Interpreter interpreter = new Interpreter(parser);
 		interpreter.interpret();
 		System.out.println(interpreter.variables);
-		/*
+
+	}
+	
+	public static void printToken(Lexer lexer) {
 		Token currentToken = lexer.getNextToken();
 		while (currentToken.getType() != TokenType.T_EOF) {
 			System.out.println(currentToken);
 			currentToken = lexer.getNextToken();
 		}
-		*/
 	}
 }
